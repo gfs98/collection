@@ -8,6 +8,15 @@
 </head>
 <body>
     <h1>这是一个html文件</h1>
-    <p>第一个版本</p>
+    <input type="text">
+    <button>提交</button>
+    <script>
+        var input = document.querySelector('input');
+        var button = document.querySelector('button');
+        button.onclick=function(){
+            localStorage.setItem('username',input.value)
+            window.location.href='./4-loginSuccess.html';
+        }
+    </script>
 </body>
 </html>
