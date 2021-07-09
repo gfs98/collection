@@ -33,4 +33,4 @@ function mainNext(ids){
     console.log(fileList)
   },600)
 
-},
+}
