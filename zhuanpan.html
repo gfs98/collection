@@ -213,78 +213,71 @@
 			<p class="title">男朋友惹我生气了怎么办</p>
 			<p class="result">？？？</p>
 			<div id="box">
-				<div class="router_outer">
-					<div class="sector">
-						<div class="sector_inner">
-							<span>写检讨书</span>
-						</div>
-					</div>
-					 <div class="sector">
-						<div class="sector_inner">
-							<span>写520个我的名字</span>
-						</div>
-					</div>
-					<div class="sector">
-						<div class="sector_inner">
-							<span>跪键盘</span>
-						</div>
-					</div>
-					<div class="sector">
-						<div class="sector_inner">
-							<span>被我打一顿</span>
-						</div>
-					</div>
-					<div class="sector">
-						<div class="sector_inner">
-							<span>哄哄道歉</span>
-						</div>
-					</div>
-					<div class="sector">
-						<div class="sector_inner">
-							<span>给我点外卖道歉</span>
-						</div>
-					</div>
-					<div class="sector">
-						<div class="sector_inner">
-							<span>写检讨书</span>
-						</div>
-					</div>
-					<div class="sector">
-						<div class="sector_inner">
-							<span>写520个我的名字</span>
-						</div>
-					</div>
-					<div class="sector">
-						<div class="sector_inner">
-							<span>跪键盘</span>
-						</div>
-					</div>
-					<div class="sector">
-						<div class="sector_inner">
-							<span>被我打一顿</span>
-						</div>
-					</div>
-					<div class="sector">
-						<div class="sector_inner">
-							<span>哄哄道歉</span>
-						</div>
-					</div>
-					<div class="sector">
-						<div class="sector_inner">
-							<span>给我点外卖道歉</span>
-						</div>
-					</div>
-					
-				</div>
-				<div class="pointer">
-					
-				</div>
+				<div class="router_outer"></div>
+				<div class="pointer"></div>
 			</div>
 			<div id="reset">
 				重置转盘
 			</div>
 		</div>
 		<script src="https://code.jquery.com/jquery-3.6.0.min.js">
+		</script>
+		<script>
+			const rotateData = [
+				'写检讨书',
+				'写520个我的名字',
+				'跪键盘',
+				'被我打一顿',
+				'哄哄道歉',
+				'给我点外卖道歉',
+				'写检讨书',
+				'写520个我的名字',
+				'跪键盘',
+				'被我打一顿',
+				'哄哄道歉',
+				'给我点外卖道歉',
+			];
+			$(".router_outer").html(function(i,origText){
+				let sector = ""
+				rotateData.forEach(function (str){
+					sector += `<div class="sector">
+									<div class="sector_inner">
+										<span>${str}</span>
+									</div>
+								</div>`
+				})
+				return sector; 
+			});
+			$('.pointer').click(function(){
+				rotateFunc();
+			});
+			var rotateFunc = function(){ 
+				let num = Math.floor(Math.random()*(rotateData.length))
+				let angle = 360-30*(num) //旋转正中间的角度，30是每个饼图的总角度，360/12=30
+				const randomBoolean = () => Math.random() >= 0.5;//随机正负符号
+				let erage = Math.floor(Math.random()*15); //15是每个饼图总角度的一半
+				angle = angle + (randomBoolean()?erage:-erage) // 在范围内随机一个角度
+				$('.router_outer').stopRotate();
+				$('.result').text('？？？')
+				$('.router_outer').rotate({
+					angle: 0,
+					duration: 5000,
+					animateTo: angle + 1440,  //angle是饼图对应的角度，1440是让指针固定旋转4圈
+					callback: function(){
+						$('.result').text(rotateData[num]).fadeIn(5000);
+					}
+				});
+			};
+			$('#reset').click(function(){
+				$('.router_outer').rotate({
+					angle: 0,
+					duration: 300,
+					animateTo: 360,
+					callback: function(){
+						$('.result').text('？？？')
+					}
+				});
+			})
 		</script>
 		<script type="text/javascript">
 			// jQueryRotate方法
@@ -521,73 +514,6 @@
 					}
 				}())
 			})(jQuery);
-		</script>
-		<script>
-			$('.pointer').click(function(){
-				var data = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11];
-				data = data[Math.floor(Math.random()*data.length)];
-				switch(data){
-					case 1: 
-						rotateFunc(1,360,'写检讨书');
-						break;
-					case 2: 
-						rotateFunc(2,330,'写520个我的名字');
-						break;
-					case 3: 
-						rotateFunc(3,300,'跪键盘');
-						break;
-					case 4: 
-						rotateFunc(4,270,'被我打一顿');
-						break;
-					case 5: 
-						rotateFunc(5,240,'哄哄道歉');
-						break;
-					case 6: 
-						rotateFunc(6,210,'给我点外卖道歉');
-						break;
-					case 7: 
-						rotateFunc(7,180,'写检讨书');
-						break;
-					case 8:
-						rotateFunc(8,150,'写520个我的名字');
-						break;
-					case 9:
-						rotateFunc(9,120,'跪键盘');
-						break;
-					case 10:
-						rotateFunc(10,90,'被我打一顿');
-						break;
-					case 11:
-						rotateFunc(11,60,'哄哄道歉');
-						break;
-					default:
-						rotateFunc(12,30,'给我点外卖道歉');
-				}
-			});
-			var rotateFunc = function(awards,angle,text){  //awards:奖项，angle:奖项对应的角度
-				$('.router_outer').stopRotate();
-				$('.result').text('？？？')
-				const randomBoolean = () => Math.random() >= 0.5;
-				angle = angle + (randomBoolean()?Math.floor(Math.random()*15):-Math.floor(Math.random()*15))
-				$('.router_outer').rotate({
-					angle: 0,
-					duration: 5000,
-					animateTo: angle + 1440,  //angle是图片上各奖项对应的角度，1440是让指针固定旋转4圈
-					callback: function(){
-						$('.result').text(text).fadeIn(5000);
-					}
-				});
-			};
-			$('#reset').click(function(){
-				$('.router_outer').rotate({
-					angle: 0,
-					duration: 300,
-					animateTo: 360,
-					callback: function(){
-						$('.result').text('？？？')
-					}
-				});
-			})
 		</script>
 	</body>
 </html>
