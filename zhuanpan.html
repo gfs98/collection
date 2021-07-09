@@ -567,6 +567,8 @@
 			var rotateFunc = function(awards,angle,text){  //awards:奖项，angle:奖项对应的角度
 				$('.router_outer').stopRotate();
 				$('.result').text('？？？')
+				const randomBoolean = () => Math.random() >= 0.5;
+				angle = angle + (randomBoolean()?Math.floor(Math.random()*15):-Math.floor(Math.random()*15))
 				$('.router_outer').rotate({
 					angle: 0,
 					duration: 5000,
