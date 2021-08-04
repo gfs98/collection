@@ -1,0 +1,39 @@
+{
+  "name": "Magic",
+  "prefix": "magic",
+  "uri": "http://magic",
+  "xml": {
+    "tagAlias": "lowerCase"
+  },
+  "associations": [],
+  "types": [
+    {
+      "name": "BewitchedStartEvent",
+      "extends": ["bpmn:StartEvent"],
+      "properties": [
+        {
+          "name": "spell",
+          "isAttr": true,
+          "type": "String"
+        }
+      ]
+    },
+    {
+      "name": "CakeTask",
+      "extends": ["bpmn:Task"],
+      "properties": [
+        {
+          "name": "taskConfig",
+          "isAttr": true,
+          "type": "String"
+        },
+        {
+          "name": "test",
+          "isAttr": true,
+          "type": "Integer",
+          "default": 2
+        }
+      ]
+    }
+  ]
+}
