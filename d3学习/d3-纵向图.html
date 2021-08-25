@@ -265,7 +265,7 @@
                 .on('dblclick.zoom', null);
             var treeG = svg.append('g')
                 .attr('class', 'gbox')
-                .attr('transform', 'translate(' + config.margin.left + ',' + config.margin.top + ')');
+                .attr('transform', 'translate(' + config.margin.left + ',' + config.margin.top + ')').append('g');
 
             //箭头
             var markerDown = svg.append("marker")
