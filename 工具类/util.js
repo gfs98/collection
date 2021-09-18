@@ -1,15 +1,25 @@
 export default {
-  isKong(obj) {
-    if (JSON.stringify(obj) == "{}" || obj == "" || JSON.stringify(obj) == "null") {
-      return true
-    } else if (obj.length == 0) {
-      return true
-    }
+  /***
+  * @name isEmpty 是否为空(不区分数据类型)
+  */
+  isEmpty(d) {
+    return !d || JSON.stringify(d) == "{}" || d.length == 0 ? true : false
   },
+  /***
+  * @name isNull 是否为null
+  */
   isNull(d) {
-    !d && typeof (d) != 'undefined' && d != 0
+    return d == null
   },
-  // 浅拷贝
+  /***
+  * @name isUndefined 是否为undefined
+  */
+  isUndefined(d) {
+    return d === undefined
+  },
+  /***
+  * @name copyObj 浅拷贝
+  */
   copyObj(sourceObject, targetObject) {
     for (var key in sourceObject) {
       targetObject[key] = sourceObject[key];
@@ -19,6 +29,12 @@ export default {
   //Object.assign(); //浅拷贝
   //Array.concat(); //数组中的基本数据为深拷贝，复杂数据为浅拷贝
   //Array.slice(下标,结束下标);截取子字符串 //浅拷贝
+  /***
+  * @name deepClone 深拷贝对象1
+  */
+  jsonClone(obj) {
+    return parse(stringify(obj))
+  },
   stringify(obj) {
     return JSON.stringify(obj, (key, val) => {
       if (typeof val === 'function') {
@@ -27,7 +43,6 @@ export default {
       return val
     })
   },
-
   parse(str) {
     JSON.parse(str, (k, v) => {
       if (v.indexOf && v.indexOf('function') > -1) {
@@ -36,12 +51,9 @@ export default {
       return v
     })
   },
-  // 深拷贝对象1
-  jsonClone(obj) {
-    return parse(stringify(obj))
-  },
-
-  // 深拷贝对象2
+  /***
+  * @name deepClone 深拷贝对象2
+  */
   deepClone(obj) {
     const _toString = Object.prototype.toString
 
@@ -79,7 +91,9 @@ export default {
     return result
   },
 
-  //  web存储
+  /***
+  * web存储
+  */  
   setStorage(key, value) {
     localStorage.setItem(key, value)
   },
@@ -90,7 +104,9 @@ export default {
     localStorage.removeItem(key)
   },
 
-  //download方法
+  /***
+  * @name downloadBolb 下载后台返回的二进制文件
+  */
   downloadBolb(url) {
     axios({
       url: url,
@@ -130,6 +146,38 @@ export default {
           }
         }
       })
-  }
+  },
+  /***
+  * @name timestampTransDate 时间戳转日期
+  * @param timestamp(时间戳)
+  * @param separator(分隔符)
+  * 例： timestampTransDate(1630425600000, '-')
+  * @return {string} 返回一个日期
+  */
+  timestampTransDate = (timestamp, separator) => {
+      let arr = [];
+      arr[0] = new Date(timestamp).getFullYear();
+      arr[1] = new Date(timestamp).getMonth() + 1 > 9 ? new Date(timestamp).getMonth() + 1 : "0" + (new Date(timestamp).getMonth() + 1);
+      arr[2] = new Date(timestamp).getDate() > 9 ? new Date(timestamp).getDate() : "0" + new Date(timestamp).getDate();
+      return arr.join(separator)
+  },
+  /***
+  * @name range 序列生成器（指定范围）
+  * @param start (number)
+  * @param stop (number)
+  * @param step (number)
+  * 例： range(1, 100, 5)
+  * @return {array} 返回一个范围内的数组
+  */
+  range = (start, stop, step) => Array.from({ length: (stop - start) / step + 1}, (_, i) => (start + (i * step)).toString()),
+  /***
+  * @name combine 数组合并去重
+  * @param arguments (array) 可传入多个数组 例：let m = [1, 2, 2], n = [2, 3, 3]; combine(m, n)
+  * @return {array} 返回去重后的数组
+  */
+  combine() {
+      let arr = [].concat.apply([], arguments);  //没有去重复的新数组
+      return Array.from(new Set(arr));
+  },
 
 }
