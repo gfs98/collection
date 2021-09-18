@@ -179,5 +179,17 @@ export default {
       let arr = [].concat.apply([], arguments);  //没有去重复的新数组
       return Array.from(new Set(arr));
   },
+  /***
+  * @name formatJson 把元素为object的数组转化为只有value的数组
+  * @param filterVal (array) object的key的集合数组
+  * @param jsonData (array) 元素为object的数组
+  * @return {array} 返回只有value的数组的数组
+  */
+  formatJson(filterVal, jsonData) {
+      return jsonData.map((v) ＝>{
+        return v[j];
+      }
+  },
+
 
 }
